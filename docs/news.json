@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-10-14T07:21:42.971Z",
+  "generatedAt": "2026-10-14T07:31:34.688Z",
   "categories": [
     {
       "id": "world",
       "title": "World",
       "items": [
         {
+          "title": "Pope diagnosed with lung cancer but had successful surgery, Vatican says",
+          "url": "https://www.bbc.co.uk/news/articles/ck1wvd9dvv22o?at_medium=RSS&at_campaign=rss",
+          "summary": "Pope Leo had a \"peaceful night\" in the hospital after the surgery to remove a lower lobe of his right lung, the Vatican says.",
+          "source": "BBC News",
+          "published": "2026-10-14T07:23:46.000Z"
+        },
+        {
+          "title": "CNN, MS NOW and Politico prevail against White House — for now",
+          "url": "https://www.npr.org/2026/10/14/nx-s1-6001398/white-house-media-ban",
+          "summary": "A federal judge ruled late Tuesday that President Trump cannot ban news organizations from covering him at the White House because he does not like the nature of their coverage - at least, not until…",
+          "source": "NPR",
+          "published": "2026-10-14T07:16:02.000Z"
+        },
+        {
           "title": "Russia arrests Japanese journalist on spying charges",
           "url": "https://www.bbc.co.uk/news/articles/cwp9g1el7x9zo?at_medium=RSS&at_campaign=rss",
           "summary": "The Hokkaido Shimbun journalist is accused of collecting information on Moscow's defence capabilities for Tokyo.",
           "source": "BBC News",
           "published": "2026-10-14T07:12:37.000Z"
-        },
-        {
-          "title": "Pope Leo has lung cancer, the Vatican announces after surgery",
-          "url": "https://www.npr.org/2026/10/13/g-s1-147968/pope-leo-has-lung-cancer-vatican-announces",
-          "summary": "Pope Leo XIV had surgery on Tuesday to remove a cancerous growth in his lung, the Vatican announced.",
-          "source": "NPR",
-          "published": "2026-10-13T22:29:26.000Z"
-        },
-        {
-          "title": "Turkey police raid opposition TV station, halting live broadcasts",
-          "url": "https://www.bbc.co.uk/news/articles/crx23y3d970vo?at_medium=RSS&at_campaign=rss",
-          "summary": "Halk TV says its staff are unable to enter the building in Istanbul, and a new manager was appointed to run the channel.",
-          "source": "BBC News",
-          "published": "2026-10-14T06:32:02.000Z"
         }
       ]
     },
@@ -35,16 +35,16 @@
         {
           "title": "Hundreds of Royal Mail staff quitting each week under new efficiency plans",
           "url": "https://www.bbc.co.uk/news/articles/cm5ynp0vz3p7o?at_medium=RSS&at_campaign=rss",
-          "summary": "The CWU says more posties are leaving since a new delivery system was brought in, that it claims is not working in hundreds of offices.",
+          "summary": "The CWU says more posties are leaving since a new delivery system was brought in that it claims is not working in hundreds of offices.",
           "source": "BBC News",
           "published": "2026-10-14T07:18:08.000Z"
         },
         {
-          "title": "IMF sounds alarm on rising government borrowing costs and cyber-attack risks – business live",
-          "url": "https://www.theguardian.com/business/live/2026/oct/14/imf-rising-government-borrowing-costs-inflation-oil-stock-markets-latest-news-updates",
-          "summary": "Rolling coverage of the latest economic and financial news Global financial system is failing developing countries, says Ed Miliband Ed Miliband is due to speak at the IMF meeting today, and our…",
+          "title": "BBC asks judge to force Trump to sit for deposition as part of his $10bn lawsuit",
+          "url": "https://www.theguardian.com/media/2026/oct/13/bbc-trump-lawsuit-deposition",
+          "summary": "BBC asks US federal judge to compel Trump’s lawyers to schedule deposition after his team canceled initial session The BBC is asking a federal judge in Florida to force Donald Trump to sit for a…",
           "source": "The Guardian",
-          "published": "2026-10-14T07:04:20.000Z"
+          "published": "2026-10-13T20:49:53.000Z"
         },
         {
           "title": "'Spray and pray': How AI job applications can backfire",
