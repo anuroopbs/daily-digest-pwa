@@ -1,0 +1,17 @@
+{
+  "categories": [
+    { "id": "world", "title": "World", "feeds": [
+      { "name": "BBC News", "url": "https://feeds.bbci.co.uk/news/world/rss.xml" },
+      { "name": "NPR", "url": "https://feeds.npr.org/1001/rss.xml" }
+    ]},
+    { "id": "business", "title": "Business", "feeds": [
+      { "name": "BBC News", "url": "https://feeds.bbci.co.uk/news/business/rss.xml" },
+      { "name": "The Guardian", "url": "https://www.theguardian.com/business/rss" }
+    ]},
+    { "id": "squash", "title": "Squash", "feeds": [
+      { "name": "PSA Squash Tour", "url": "https://www.psasquashtour.com/feed/" },
+      { "name": "World Squash", "url": "https://www.worldsquash.sport/feed/" }
+    ]}
+  ],
+  "perCategory": 3
+}

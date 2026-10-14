@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Digest</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<meta name="theme-color" content="#0f766e">
+<style>
+:root{--bg:#f6f7f8;--card:#fff;--text:#17202a;--muted:#5d6b78;--accent:#0f766e;--line:#e3e7ea}
+@media (prefers-color-scheme:dark){:root{--bg:#10151a;--card:#1a2128;--text:#e8edf1;--muted:#93a1ae;--accent:#2dd4bf;--line:#2a343d}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif}
+main{max-width:680px;margin:0 auto;padding:16px}
+h1{font-size:1.4rem;margin:8px 0 2px}.sub{color:var(--muted);font-size:.85rem;margin-bottom:18px}
+h2{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:26px 0 8px}
+a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;color:inherit;text-decoration:none}
+a.card:hover{border-color:var(--accent)}.t{font-weight:600}.s{color:var(--muted);font-size:.9rem;margin-top:4px}
+.m{color:var(--muted);font-size:.75rem;margin-top:6px}.err{color:var(--muted)}
+</style>
+</head>
+<body><main>
+<h1>Daily Digest</h1><div class="sub" id="sub">Loading…</div><div id="out"></div>
+</main>
+<script>
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const safe=u=>/^https?:\/\//i.test(u)?u:'#';
+fetch('news.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{
+  document.getElementById('sub').textContent='Updated '+new Date(d.generatedAt).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});
+  document.getElementById('out').innerHTML=d.categories.map(c=>`<h2>${esc(c.title)}</h2>`+
+    (c.items.length?c.items.map(i=>`<a class="card" href="${esc(safe(i.url))}" target="_blank" rel="noopener"><div class="t">${esc(i.title)}</div>${i.summary?`<div class="s">${esc(i.summary)}</div>`:''}<div class="m">${esc(i.source)}${i.published?' · '+new Date(i.published).toLocaleDateString([], {month:'short',day:'numeric'}):''}</div></a>`).join(''):'<div class="err">No stories available right now.</div>')).join('');
+}).catch(()=>{document.getElementById('sub').textContent='Could not load the news. Check your connection.';});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body></html>

@@ -1,0 +1,1 @@
+{"name":"daily-digest","private":true,"type":"module","scripts":{"fetch":"node scripts/fetch-news.mjs","serve":"npx --yes serve public -l 4173"}}

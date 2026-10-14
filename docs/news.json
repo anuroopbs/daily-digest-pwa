@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-10-14T07:21:42.971Z",
+  "categories": [
+    {
+      "id": "world",
+      "title": "World",
+      "items": [
+        {
+          "title": "Russia arrests Japanese journalist on spying charges",
+          "url": "https://www.bbc.co.uk/news/articles/cwp9g1el7x9zo?at_medium=RSS&at_campaign=rss",
+          "summary": "The Hokkaido Shimbun journalist is accused of collecting information on Moscow's defence capabilities for Tokyo.",
+          "source": "BBC News",
+          "published": "2026-10-14T07:12:37.000Z"
+        },
+        {
+          "title": "Pope Leo has lung cancer, the Vatican announces after surgery",
+          "url": "https://www.npr.org/2026/10/13/g-s1-147968/pope-leo-has-lung-cancer-vatican-announces",
+          "summary": "Pope Leo XIV had surgery on Tuesday to remove a cancerous growth in his lung, the Vatican announced.",
+          "source": "NPR",
+          "published": "2026-10-13T22:29:26.000Z"
+        },
+        {
+          "title": "Turkey police raid opposition TV station, halting live broadcasts",
+          "url": "https://www.bbc.co.uk/news/articles/crx23y3d970vo?at_medium=RSS&at_campaign=rss",
+          "summary": "Halk TV says its staff are unable to enter the building in Istanbul, and a new manager was appointed to run the channel.",
+          "source": "BBC News",
+          "published": "2026-10-14T06:32:02.000Z"
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "items": [
+        {
+          "title": "Hundreds of Royal Mail staff quitting each week under new efficiency plans",
+          "url": "https://www.bbc.co.uk/news/articles/cm5ynp0vz3p7o?at_medium=RSS&at_campaign=rss",
+          "summary": "The CWU says more posties are leaving since a new delivery system was brought in, that it claims is not working in hundreds of offices.",
+          "source": "BBC News",
+          "published": "2026-10-14T07:18:08.000Z"
+        },
+        {
+          "title": "IMF sounds alarm on rising government borrowing costs and cyber-attack risks – business live",
+          "url": "https://www.theguardian.com/business/live/2026/oct/14/imf-rising-government-borrowing-costs-inflation-oil-stock-markets-latest-news-updates",
+          "summary": "Rolling coverage of the latest economic and financial news Global financial system is failing developing countries, says Ed Miliband Ed Miliband is due to speak at the IMF meeting today, and our…",
+          "source": "The Guardian",
+          "published": "2026-10-14T07:04:20.000Z"
+        },
+        {
+          "title": "'Spray and pray': How AI job applications can backfire",
+          "url": "https://www.bbc.co.uk/news/articles/c623dnkn8pkyo?at_medium=RSS&at_campaign=rss",
+          "summary": "Graduates are increasingly using AI to misrepresent themselves in job applications, research suggests. But some say their peer group has no choice.",
+          "source": "BBC News",
+          "published": "2026-10-14T06:52:33.000Z"
+        }
+      ]
+    },
+    {
+      "id": "squash",
+      "title": "Squash",
+      "items": [
+        {
+          "title": "El Hammamy & Asal Continue Title Defences As Egyptian Open Returns To Great Pyramid of Giza",
+          "url": "https://www.psasquashtour.com/news/el-hammamy-asal-continue-title-defences-as-egyptian-open-returns-to-great-pyramid-of-giza/",
+          "summary": "Hania El Hammamy and Mostafa Asal continued their title defences at the CIB Egyptian Open 2026, booking their places in the semi-finals following respective wins over Satomi Watanabe and Mohamad…",
+          "source": "PSA Squash Tour",
+          "published": "2026-10-13T23:07:25.000Z"
+        },
+        {
+          "title": "39,000 players participate in World’s Biggest Squash Match for World Squash Day",
+          "url": "https://www.worldsquash.sport/39000-players-participate-in-worlds-biggest-squash-match-for-world-squash-day/",
+          "summary": "No matter your level, there’s a place on court for everyone. This year’s World Squash Day brought the global squash community together for the world’s biggest squash match! Over an action-packed 10…",
+          "source": "World Squash",
+          "published": "2026-10-12T13:32:30.000Z"
+        },
+        {
+          "title": "Live – Egyptian Open Quarter-Finals: El Hammamy & Sivasangari Win In Five, Asal Overcomes Zakaria",
+          "url": "https://www.psasquashtour.com/featured-news/live-egyptian-open-quarter-finals-action-underway-from-great-pyramids-of-giza/",
+          "summary": "Summary Live Reporting: 00:35 (GMT+3) 00:19 (GMT+3) Match TO Gawad Gawad 15-13, 13-11, 11-7 ElShorbagy World No.4 Karim Gawad gets the job done. He sees off a determined showing from Marwan…",
+          "source": "PSA Squash Tour",
+          "published": "2026-10-13T16:00:08.000Z"
+        }
+      ]
+    }
+  ]
+}
