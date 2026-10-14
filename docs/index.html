@@ -8,28 +8,123 @@
 <link rel="icon" href="icon.svg">
 <meta name="theme-color" content="#0f766e">
 <style>
-:root{--bg:#f6f7f8;--card:#fff;--text:#17202a;--muted:#5d6b78;--accent:#0f766e;--line:#e3e7ea}
-@media (prefers-color-scheme:dark){:root{--bg:#10151a;--card:#1a2128;--text:#e8edf1;--muted:#93a1ae;--accent:#2dd4bf;--line:#2a343d}}
+:root{--bg:#f6f7f8;--card:#fff;--text:#17202a;--muted:#5d6b78;--accent:#0f766e;--line:#e3e7ea;--chip:#e6f4f2}
+@media (prefers-color-scheme:dark){:root{--bg:#10151a;--card:#1a2128;--text:#e8edf1;--muted:#93a1ae;--accent:#2dd4bf;--line:#2a343d;--chip:#173a37}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif}
-main{max-width:680px;margin:0 auto;padding:16px}
-h1{font-size:1.4rem;margin:8px 0 2px}.sub{color:var(--muted);font-size:.85rem;margin-bottom:18px}
+main{max-width:700px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+h1{font-size:1.4rem;margin:8px 0 2px}.sub{color:var(--muted);font-size:.85rem;margin-bottom:12px}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:8px 14px;font-weight:600}
+@media (prefers-color-scheme:dark){.btn{color:#06201d}}
+.link{background:none;border:0;color:var(--accent);padding:2px 6px;font-size:.85rem}
+#panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+#panel[hidden]{display:none}
+#panel h3{margin:10px 0 6px;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+label.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:.88rem;user-select:none;cursor:pointer}
+label.chip:has(input:checked){background:var(--chip);border-color:var(--accent)}
+label.chip input{accent-color:var(--accent);margin:0}
+.note{color:var(--muted);font-size:.78rem;margin-top:8px}
 h2{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:26px 0 8px}
 a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;color:inherit;text-decoration:none}
-a.card:hover{border-color:var(--accent)}.t{font-weight:600}.s{color:var(--muted);font-size:.9rem;margin-top:4px}
-.m{color:var(--muted);font-size:.75rem;margin-top:6px}.err{color:var(--muted)}
+a.card:hover,a.card:focus-visible{border-color:var(--accent)}.t{font-weight:600}.s{color:var(--muted);font-size:.9rem;margin-top:4px}
+.m{color:var(--muted);font-size:.75rem;margin-top:6px}.err{color:var(--muted);font-size:.9rem}
 </style>
 </head>
 <body><main>
-<h1>Daily Digest</h1><div class="sub" id="sub">Loading…</div><div id="out"></div>
+<header><div><h1>Daily Digest</h1><div class="sub" id="sub">Loading…</div></div><button class="btn" id="toggle" aria-expanded="false">Customise</button></header>
+<section id="panel" hidden>
+  <div class="row"><strong>Topics</strong><button class="link" data-all="topics">All</button><button class="link" data-none="topics">None</button></div>
+  <div id="topics"></div>
+  <h3>News channels</h3>
+  <div class="row"><button class="link" data-all="sources">All</button><button class="link" data-none="sources">None</button></div>
+  <div class="row" id="sources"></div>
+  <div class="note">Channel filter applies to world-news topics. City, squash and viral topics use their own sources. All choices are saved on this device.</div>
+</section>
+<div id="out"></div>
 </main>
 <script>
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const PER_TOPIC=3, KEY='digest-prefs-v1';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safe=u=>/^https?:\/\//i.test(u)?u:'#';
+const $=id=>document.getElementById(id);
+const STOP=new Set('that this with from have will after about their they been were what when over into says said more than could would while amid also first last year years news live'.split(' '));
+const kw=t=>new Set((t.toLowerCase().match(/[a-z0-9]{4,}/g)||[]).filter(w=>!STOP.has(w)));
+const similar=(a,b)=>{let n=0;for(const w of a)if(b.has(w))n++;return n>=2&&n/Math.min(a.size,b.size)>=.5};
+let data=null, prefs=null;
+
+function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch{return null}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(prefs))}catch{}}
+
+function pick(topic){
+  let items=topic.items;
+  if(!topic.anySource) items=items.filter(i=>prefs.sources.includes(i.source));
+  if(topic.id==='trending'){
+    items=items.map(i=>({...i,n:1+(i.coveredBy||[]).filter(s=>prefs.sources.includes(s)).length}))
+      .filter(i=>i.n>=2).sort((a,b)=>b.n-a.n||(b.published||'').localeCompare(a.published||''));
+  }
+  const out=[], perSrc={};
+  const accept=(i,cap)=>{
+    if(out.includes(i)||(perSrc[i.source]||0)>=cap) return false;
+    const k=kw(i.title); if(out.some(o=>similar(k,kw(o.title)))) return false;
+    out.push(i); perSrc[i.source]=(perSrc[i.source]||0)+1; return true;
+  };
+  for(const i of items){ if(out.length>=PER_TOPIC)break; accept(i,2); }
+  for(const i of items){ if(out.length>=PER_TOPIC)break; accept(i,PER_TOPIC); }
+  return out;
+}
+
+function card(i,topic){
+  const meta=[i.sourceName||i.source, i.published?new Date(i.published).toLocaleDateString([], {month:'short',day:'numeric'}):''];
+  if(topic.id==='trending'&&i.n) meta.push(`covered by ${i.n} channels`);
+  return `<a class="card" href="${esc(safe(i.url))}" target="_blank" rel="noopener"><div class="t">${esc(i.title)}</div>${i.summary?`<div class="s">${esc(i.summary)}</div>`:''}<div class="m">${meta.filter(Boolean).map(esc).join(' · ')}</div></a>`;
+}
+
+function render(){
+  const html=data.topics.filter(t=>prefs.topics.includes(t.id)).map(t=>{
+    const items=pick(t);
+    return `<h2>${esc(t.title)}</h2>`+(items.length?items.map(i=>card(i,t)).join(''):'<div class="err">Nothing to show — try selecting more channels, or check back after the next update.</div>');
+  }).join('');
+  $('out').innerHTML=html||'<div class="err">No topics selected. Tap Customise to choose some.</div>';
+}
+
+function renderPanel(){
+  const groups=[...new Set(data.topics.map(t=>t.group))];
+  $('topics').innerHTML=groups.map(g=>`<h3>${esc(g)}</h3><div class="row">`+data.topics.filter(t=>t.group===g).map(t=>
+    `<label class="chip"><input type="checkbox" data-topic="${esc(t.id)}" ${prefs.topics.includes(t.id)?'checked':''}>${esc(t.title)}</label>`).join('')+`</div>`).join('');
+  $('sources').innerHTML=data.sources.map(s=>
+    `<label class="chip"><input type="checkbox" data-source="${esc(s.id)}" ${prefs.sources.includes(s.id)?'checked':''}>${esc(s.name)}</label>`).join('');
+}
+
+function sync(){
+  prefs.topics=[...document.querySelectorAll('[data-topic]:checked')].map(e=>e.dataset.topic);
+  prefs.sources=[...document.querySelectorAll('[data-source]:checked')].map(e=>e.dataset.source);
+  save(); render();
+}
+
+$('toggle').onclick=()=>{const p=$('panel');p.hidden=!p.hidden;$('toggle').setAttribute('aria-expanded',String(!p.hidden));$('toggle').textContent=p.hidden?'Customise':'Done'};
+$('panel').addEventListener('change',sync);
+$('panel').addEventListener('click',e=>{
+  const all=e.target.dataset.all, none=e.target.dataset.none, which=all||none;
+  if(!which)return;
+  const attr=which==='topics'?'data-topic':'data-source';
+  document.querySelectorAll(`[${attr}]`).forEach(c=>c.checked=!!all);
+  sync();
+});
+
 fetch('news.json',{cache:'no-cache'}).then(r=>r.json()).then(d=>{
-  document.getElementById('sub').textContent='Updated '+new Date(d.generatedAt).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});
-  document.getElementById('out').innerHTML=d.categories.map(c=>`<h2>${esc(c.title)}</h2>`+
-    (c.items.length?c.items.map(i=>`<a class="card" href="${esc(safe(i.url))}" target="_blank" rel="noopener"><div class="t">${esc(i.title)}</div>${i.summary?`<div class="s">${esc(i.summary)}</div>`:''}<div class="m">${esc(i.source)}${i.published?' · '+new Date(i.published).toLocaleDateString([], {month:'short',day:'numeric'}):''}</div></a>`).join(''):'<div class="err">No stories available right now.</div>')).join('');
-}).catch(()=>{document.getElementById('sub').textContent='Could not load the news. Check your connection.';});
+  data=d;
+  const saved=load();
+  // Default: everything on. Saved prefs are kept but pruned to topics/sources that still exist.
+  prefs={topics:d.topics.map(t=>t.id),sources:d.sources.map(s=>s.id)};
+  if(saved){
+    if(Array.isArray(saved.topics)) prefs.topics=saved.topics.filter(id=>d.topics.some(t=>t.id===id));
+    if(Array.isArray(saved.sources)) prefs.sources=saved.sources.filter(id=>d.sources.some(s=>s.id===id));
+  }
+  $('sub').textContent='Updated '+new Date(d.generatedAt).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});
+  renderPanel(); render();
+}).catch(()=>{$('sub').textContent='Could not load the news. Check your connection.';});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body></html>

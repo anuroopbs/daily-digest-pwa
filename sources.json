@@ -1,17 +1,431 @@
 {
-  "categories": [
-    { "id": "world", "title": "World", "feeds": [
-      { "name": "BBC News", "url": "https://feeds.bbci.co.uk/news/world/rss.xml" },
-      { "name": "NPR", "url": "https://feeds.npr.org/1001/rss.xml" }
-    ]},
-    { "id": "business", "title": "Business", "feeds": [
-      { "name": "BBC News", "url": "https://feeds.bbci.co.uk/news/business/rss.xml" },
-      { "name": "The Guardian", "url": "https://www.theguardian.com/business/rss" }
-    ]},
-    { "id": "squash", "title": "Squash", "feeds": [
-      { "name": "PSA Squash Tour", "url": "https://www.psasquashtour.com/feed/" },
-      { "name": "World Squash", "url": "https://www.worldsquash.sport/feed/" }
-    ]}
+  "perTopic": 3,
+  "poolSize": 30,
+  "sources": [
+    {
+      "id": "bbc",
+      "name": "BBC News"
+    },
+    {
+      "id": "guardian",
+      "name": "The Guardian"
+    },
+    {
+      "id": "npr",
+      "name": "NPR"
+    },
+    {
+      "id": "aljazeera",
+      "name": "Al Jazeera"
+    },
+    {
+      "id": "dw",
+      "name": "Deutsche Welle"
+    },
+    {
+      "id": "abc",
+      "name": "ABC News (Australia)"
+    },
+    {
+      "id": "cbc",
+      "name": "CBC News"
+    },
+    {
+      "id": "hindu",
+      "name": "The Hindu"
+    },
+    {
+      "id": "pbs",
+      "name": "PBS NewsHour"
+    },
+    {
+      "id": "nyt",
+      "name": "The New York Times"
+    }
   ],
-  "perCategory": 3
+  "feeds": {
+    "bbc-world": "https://feeds.bbci.co.uk/news/world/rss.xml",
+    "bbc-business": "https://feeds.bbci.co.uk/news/business/rss.xml",
+    "bbc-tech": "https://feeds.bbci.co.uk/news/technology/rss.xml",
+    "bbc-india": "https://feeds.bbci.co.uk/news/world/asia/india/rss.xml",
+    "guardian-world": "https://www.theguardian.com/world/rss",
+    "guardian-business": "https://www.theguardian.com/business/rss",
+    "guardian-tech": "https://www.theguardian.com/technology/rss",
+    "guardian-ai": "https://www.theguardian.com/technology/artificialintelligenceai/rss",
+    "guardian-india": "https://www.theguardian.com/world/india/rss",
+    "npr-world": "https://feeds.npr.org/1001/rss.xml",
+    "npr-business": "https://feeds.npr.org/1006/rss.xml",
+    "npr-tech": "https://feeds.npr.org/1019/rss.xml",
+    "aljazeera-all": "https://www.aljazeera.com/xml/rss/all.xml",
+    "dw-all": "https://rss.dw.com/rdf/rss-en-all",
+    "abc-all": "https://www.abc.net.au/news/feed/51120/rss.xml",
+    "cbc-world": "https://www.cbc.ca/webfeed/rss/rss-world",
+    "cbc-business": "https://www.cbc.ca/webfeed/rss/rss-business",
+    "cbc-tech": "https://www.cbc.ca/webfeed/rss/rss-technology",
+    "hindu-national": "https://www.thehindu.com/news/national/feeder/default.rss",
+    "hindu-business": "https://www.thehindu.com/business/feeder/default.rss",
+    "pbs-all": "https://www.pbs.org/newshour/feeds/rss/headlines",
+    "nyt-world": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+    "nyt-business": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
+    "nyt-tech": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+    "psa": "https://www.psasquashtour.com/feed/",
+    "worldsquash": "https://www.worldsquash.sport/feed/"
+  },
+  "filters": {
+    "ai": "\\b(AI|A\\.I\\.|artificial intelligence|OpenAI|ChatGPT|Anthropic|Claude|Gemini|chatbot|machine learning|LLM|Nvidia|generative)\\b",
+    "stocks": "\\b(stocks?|shares|share price|equities|wall street|nasdaq|dow jones|s&p|ftse|sensex|nifty|nikkei|stock market|bond yields?|investors?|rally|sell-?off)\\b",
+    "india": "\\b(India|Indian|Modi|Delhi|Mumbai|Hyderabad|Bengaluru|Bangalore|Kolkata|Chennai)\\b",
+    "military": "\\b(military|army|navy|air force|troops|soldiers?|missiles?|drones?|defen[cs]e|nato|pentagon|warship|airstrike|air strike|ceasefire|war|weapons|armed forces)\\b"
+  },
+  "topics": [
+    {
+      "id": "world",
+      "title": "World",
+      "group": "Top stories",
+      "feeds": [
+        {
+          "feed": "bbc-world",
+          "source": "bbc"
+        },
+        {
+          "feed": "guardian-world",
+          "source": "guardian"
+        },
+        {
+          "feed": "npr-world",
+          "source": "npr"
+        },
+        {
+          "feed": "aljazeera-all",
+          "source": "aljazeera"
+        },
+        {
+          "feed": "dw-all",
+          "source": "dw"
+        },
+        {
+          "feed": "abc-all",
+          "source": "abc"
+        },
+        {
+          "feed": "cbc-world",
+          "source": "cbc"
+        },
+        {
+          "feed": "pbs-all",
+          "source": "pbs"
+        },
+        {
+          "feed": "nyt-world",
+          "source": "nyt"
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "group": "Top stories",
+      "feeds": [
+        {
+          "feed": "bbc-business",
+          "source": "bbc"
+        },
+        {
+          "feed": "guardian-business",
+          "source": "guardian"
+        },
+        {
+          "feed": "npr-business",
+          "source": "npr"
+        },
+        {
+          "feed": "cbc-business",
+          "source": "cbc"
+        },
+        {
+          "feed": "hindu-business",
+          "source": "hindu"
+        },
+        {
+          "feed": "nyt-business",
+          "source": "nyt"
+        }
+      ]
+    },
+    {
+      "id": "trending",
+      "title": "Trending (most widely covered)",
+      "group": "Top stories",
+      "kind": "trending"
+    },
+    {
+      "id": "viral",
+      "title": "Viral (top of Hacker News today)",
+      "group": "Top stories",
+      "kind": "viral",
+      "anySource": true
+    },
+    {
+      "id": "ai",
+      "title": "AI",
+      "group": "Tech & markets",
+      "filter": "ai",
+      "feeds": [
+        {
+          "feed": "guardian-ai",
+          "source": "guardian",
+          "nofilter": true
+        },
+        {
+          "feed": "bbc-tech",
+          "source": "bbc"
+        },
+        {
+          "feed": "guardian-tech",
+          "source": "guardian"
+        },
+        {
+          "feed": "npr-tech",
+          "source": "npr"
+        },
+        {
+          "feed": "cbc-tech",
+          "source": "cbc"
+        },
+        {
+          "feed": "nyt-tech",
+          "source": "nyt"
+        },
+        {
+          "feed": "aljazeera-all",
+          "source": "aljazeera"
+        },
+        {
+          "feed": "dw-all",
+          "source": "dw"
+        },
+        {
+          "feed": "abc-all",
+          "source": "abc"
+        },
+        {
+          "feed": "bbc-business",
+          "source": "bbc"
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "title": "Tech industry",
+      "group": "Tech & markets",
+      "feeds": [
+        {
+          "feed": "bbc-tech",
+          "source": "bbc"
+        },
+        {
+          "feed": "guardian-tech",
+          "source": "guardian"
+        },
+        {
+          "feed": "npr-tech",
+          "source": "npr"
+        },
+        {
+          "feed": "cbc-tech",
+          "source": "cbc"
+        },
+        {
+          "feed": "nyt-tech",
+          "source": "nyt"
+        }
+      ]
+    },
+    {
+      "id": "stocks",
+      "title": "Stock market",
+      "group": "Tech & markets",
+      "filter": "stocks",
+      "feeds": [
+        {
+          "feed": "bbc-business",
+          "source": "bbc"
+        },
+        {
+          "feed": "guardian-business",
+          "source": "guardian"
+        },
+        {
+          "feed": "npr-business",
+          "source": "npr"
+        },
+        {
+          "feed": "cbc-business",
+          "source": "cbc"
+        },
+        {
+          "feed": "hindu-business",
+          "source": "hindu"
+        },
+        {
+          "feed": "nyt-business",
+          "source": "nyt"
+        },
+        {
+          "feed": "aljazeera-all",
+          "source": "aljazeera"
+        },
+        {
+          "feed": "dw-all",
+          "source": "dw"
+        }
+      ]
+    },
+    {
+      "id": "india",
+      "title": "India",
+      "group": "Regions",
+      "filter": "india",
+      "feeds": [
+        {
+          "feed": "bbc-india",
+          "source": "bbc",
+          "nofilter": true
+        },
+        {
+          "feed": "guardian-india",
+          "source": "guardian",
+          "nofilter": true
+        },
+        {
+          "feed": "hindu-national",
+          "source": "hindu",
+          "nofilter": true
+        },
+        {
+          "feed": "aljazeera-all",
+          "source": "aljazeera"
+        },
+        {
+          "feed": "dw-all",
+          "source": "dw"
+        },
+        {
+          "feed": "nyt-world",
+          "source": "nyt"
+        },
+        {
+          "feed": "abc-all",
+          "source": "abc"
+        }
+      ]
+    },
+    {
+      "id": "military",
+      "title": "Military & defence (global)",
+      "group": "Top stories",
+      "filter": "military",
+      "feeds": [
+        {
+          "feed": "bbc-world",
+          "source": "bbc"
+        },
+        {
+          "feed": "guardian-world",
+          "source": "guardian"
+        },
+        {
+          "feed": "npr-world",
+          "source": "npr"
+        },
+        {
+          "feed": "aljazeera-all",
+          "source": "aljazeera"
+        },
+        {
+          "feed": "dw-all",
+          "source": "dw"
+        },
+        {
+          "feed": "abc-all",
+          "source": "abc"
+        },
+        {
+          "feed": "cbc-world",
+          "source": "cbc"
+        },
+        {
+          "feed": "pbs-all",
+          "source": "pbs"
+        },
+        {
+          "feed": "nyt-world",
+          "source": "nyt"
+        },
+        {
+          "feed": "hindu-national",
+          "source": "hindu"
+        }
+      ]
+    },
+    {
+      "id": "hyderabad",
+      "title": "Hyderabad, Telangana",
+      "group": "Cities",
+      "anySource": true,
+      "gnews": [
+        "Hyderabad Telangana"
+      ],
+      "gnewsLocale": "hl=en-IN&gl=IN&ceid=IN:en"
+    },
+    {
+      "id": "thiene",
+      "title": "Thiene, Vicenza (Italy)",
+      "group": "Cities",
+      "anySource": true,
+      "gnews": [
+        "Thiene Vicenza",
+        "Thiene"
+      ],
+      "gnewsLocale": "hl=it&gl=IT&ceid=IT:it"
+    },
+    {
+      "id": "tallinn",
+      "title": "Tallinn, Estonia",
+      "group": "Cities",
+      "anySource": true,
+      "gnews": [
+        "Tallinn Estonia"
+      ],
+      "gnewsLocale": "hl=en&gl=US&ceid=US:en"
+    },
+    {
+      "id": "dublin",
+      "title": "Dublin, Ireland",
+      "group": "Cities",
+      "anySource": true,
+      "gnews": [
+        "Dublin Ireland"
+      ],
+      "gnewsLocale": "hl=en&gl=IE&ceid=IE:en"
+    },
+    {
+      "id": "squash",
+      "title": "Squash",
+      "group": "Sport",
+      "anySource": true,
+      "feeds": [
+        {
+          "feed": "psa",
+          "source": "psa",
+          "sourceName": "PSA Squash Tour"
+        },
+        {
+          "feed": "worldsquash",
+          "source": "worldsquash",
+          "sourceName": "World Squash"
+        }
+      ]
+    }
+  ]
 }
